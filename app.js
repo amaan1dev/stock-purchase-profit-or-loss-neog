@@ -6,13 +6,27 @@ var sellingPrice = document.querySelector("#selling-price");
 
 var checkBtn = document.querySelector("#chk-btn");
 
-function checkProfit(){
-    var profit = sellingPrice.value - buyingPrice.value
+var resultText = document.querySelector("#result-text");
+
+function checkProfitAndLoss() {
+    if (Number(sellingPrice.value) > Number(buyingPrice.value)) {
+        var profit = Number(sellingPrice.value) - Number(buyingPrice.value);
+
+        var totalProfit = Number(profit) * Number(stocksQuantity);
+
+        var profitPercentage = ((profit / buyingPrice.value) * 100).toFixed(2);
+
+        resultText.innerText = "The Profit Percentage is " + profitPercentage + "% " + "with a net profit of ₹" + totalProfit;
+    }
+    else if (Number(sellingPrice.value) < Number(buyingPrice.value)) {
+        var loss = Number(buyingPrice.value) - Number(sellingPrice.value);
+
+        var lossPercentage = ((loss / buyingPrice.value) * 100).toFixed(2);
+        
+        resultText.innerText = "The Loss Percentage is " + lossPercentage + "% " + "with a total loss of ₹" + loss;
+    }
 }
 
-function clickHandler(){
-    console.log(checkProfit(profit))
-}
 
 
-checkBtn.addEventListener("click", clickHandler)
+checkBtn.addEventListener("click", checkProfitAndLoss)
